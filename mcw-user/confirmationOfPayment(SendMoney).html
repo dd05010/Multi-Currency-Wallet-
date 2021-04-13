@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!--TITLE-->
+  <title>Multi-Currency Wallet-Confirmation Of Payment</title>
+
+  <!-- Favicon icon -->
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+
+  <!--Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
+
+</head>
+
+<body>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+  <div class="container">
+    <div class="row">
+
+      <div class="receipt-main col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+        <div class="row">
+          <div class="receipt-header">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="receipt-left" href="dashboard.html">
+                <a href="dashboard.html">
+                  <img class="img-responsive" src="images/logo.png" style="width: 150px; border-radius: 0px;">
+                </a>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+              <div class="receipt-right">
+                <h5>Multi Currency Wallet</h5>
+                <p>+48 729 623 471 <i class="fa fa-phone"></i></p>
+                <p>MCWallet@gmail.com<i class="fa fa-envelope-o"></i></p>
+                <p>Poland<i class="fa fa-location-arrow"></i></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <h2 style="text-align:center">Conformation of Transaction</h2>
+
+        </div>
+
+        <div>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-md-4">Payment Method</td>
+                <td id="paymentMethod" class="col-md-8"><i class="fa fa-inr"></i> </td>
+              </tr>
+
+              <tr>
+                <td class="col-md-4">Transaction Done From: </td>
+                <td id="accountName" class="col-md-8"><i class="fa fa-inr"></i> 15,000/-</td>
+              </tr>
+
+              <tr>
+                <td class="col-md-4">After Transaction Remaining Amount In Your Account</td>
+                <td id="remainingMoneyIntoAccount" class="col-md-8"><i class="fa fa-inr"></i> 15,000/-</td>
+              </tr>
+
+
+              <tr>
+                <td class="col-md-4">Source Account No.</td>
+                <td id="sourceAccountNo" class="col-md-8"><i class="fa fa-inr"></i> 15,000/-</td>
+              </tr>
+              <tr>
+                <td class="col-md-4">Destination Account No.</td>
+                <td id="destinationAccountNo" class="col-md-8"><i class="fa fa-inr"></i> 15,000/-</td>
+              </tr>
+              <tr>
+                <td class="col-md-4">You Send</td>
+                <td id="from_ammount" class="col-md-8"><i class="fa fa-inr"></i> 15,000/-</td>
+              </tr>
+
+
+              <tr>
+                <td class="col-md-4">Recipient Gets</td>
+                <td id="to_ammount" class="col-md-8"><i class="fa fa-inr"></i> 15,000/-</td>
+              </tr>
+
+              <tr>
+                <td class="col-md-4">MCW Fees</td>
+                <td id="totalFees" class="col-md-8"><i class="fa fa-inr"></i> 15,000/-</td>
+              </tr>
+
+              <tr>
+                <td class="text-right">
+                  <h2><strong>Total: </strong></h2>
+                </td>
+                <td class="text-left text-danger">
+                  <h2 id="totalAmount"><strong><i class="fa fa-inr"></i> 31.566/-</strong></h2>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row">
+          <div class="receipt-header receipt-header-mid receipt-footer">
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+              <div class="receipt-right">
+                <p id="date"><b>Date: </b></p>
+                <p id="time"><b>time: </b></p>
+                <h5 style="color: rgb(140, 140, 140);">Thank you!</h5>
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+              <div class="receipt-left">
+                <h5>Provided By~ MCW Ltd.</h5>
+                <h5><input id="printpagebutton" type="button" value="Print this page" onclick="printpage()" /></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/moment.min.js"></script>
+  <script src="js/daterangepicker.js"></script>
+  <script src="js/bootstrap-select.min.js"></script>
+  <script src="js/custom.js"></script>
+
+  <script src="../js/index.js"></script>
+
+
+
+  <script type="text/javascript">
+    function printpage() {
+      //Get the print button and put it into a variable
+      var printButton = document.getElementById("printpagebutton");
+      //Set the print button visibility to 'hidden'
+      printButton.style.visibility = 'hidden';
+      //Print the page content
+      window.print()
+      //Set the print button to 'visible' again
+      //[Delete this line if you want it to stay hidden after printing]
+      printButton.style.visibility = 'visible';
+    }
+  </script>
+
+
+  <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var userId = user.uid;
+
+        var paymentMethod = localStorage.getItem('transferMethod');
+        var accountName = localStorage.getItem('from_currency');
+        var sendMoneyAmount = localStorage.getItem('from_ammount') + " " + accountName;;
+
+        var remainingMoneyIntoAccount = localStorage.getItem('remainingAmountInAccountFT');
+        var destinationAccountNo = localStorage.getItem('destinationAccountNo');
+        var sourceAccountNo = localStorage.getItem('from_accountNumber');
+
+
+        //You Send:-
+        var from_currency = localStorage.getItem('from_currency'); // currency name
+        var youSend = localStorage.getItem('from_ammount') + " " + from_currency;
+
+
+        //Recipient Gets:-
+        var to_currency = localStorage.getItem('to_currency');
+        var totalAmount = (localStorage.getItem('to_ammount') - (localStorage.getItem('to_ammount') * 0.005)).toFixed(3) + " " + to_currency;
+
+        var totalFees = localStorage.getItem('totalFees');
+
+        var total = localStorage.getItem('to_ammount') + " " + to_currency;
+        var key = localStorage.getItem('transactionForeignTransferDetailsDb');
+
+        $('#paymentMethod').empty().append(paymentMethod);
+        $('#accountName').empty().append(" " + accountName + " Account");
+        $('#remainingMoneyIntoAccount').empty().append(remainingMoneyIntoAccount + " " + accountName);
+        $("#sourceAccountNo").empty().append(sourceAccountNo);
+        $("#destinationAccountNo").empty().append(destinationAccountNo);
+        $("#from_ammount").empty().append(youSend);
+        $("#to_ammount").empty().append(totalAmount);
+        $("#totalFees").empty().append(totalFees);
+        $("#totalAmount").empty().append(total);
+
+
+
+        firebase.database().ref("Transactions/" + user.uid + "/" + key).once('value').then(
+          function(snapshot) {
+            var date = (snapshot.val() && snapshot.val().date);
+            var month = (snapshot.val() && snapshot.val().month);
+            var year = (snapshot.val() && snapshot.val().year);
+            var time = (snapshot.val() && snapshot.val().time);
+
+            $('#date').append(" " + date + "-" + month + "-" + year);
+            $('#time').append(" " + time);
+          }
+        )
+      }
+    });
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!--TITLE-->
+  <title>Multi-Currency Wallet-dashboard</title>
+
+  <!-- Favicon icon -->
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+  <!--Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
+
+</head>
+
+<body>
+
+  <script type="text/javascript">
+    $("#jay").click(function() {
+      window.alert("Clicked");
+    });
+  </script>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div id="status"></div>
+  </div>
+
+  <!-- Document Wrapper -->
+  <div id="main-wrapper">
+    <!-- Header start -->
+    <header class="header02">
+      <div class="header-top">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-sm-8">
+              <div class="d-inline-flex ml-auto">
+                <a href="#" class="top-text"><i class="fas fa-phone-alt"></i> MCWallet@gmail.com</a>
+                <a href="#" class="top-text"><i class="fas fa-envelope"></i> +48 729 623 471</a>
+              </div>
+            </div>
+            <div class="col-sm-4 text-sm-right">
+              <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i> </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--header -->
+      <div class="header-main">
+        <div class="container d-flex align-items-center">
+          <a class="logo d-inline-flex" href="dashboard.html">
+            <img src="images/logo.png" alt="">
+          </a>
+          <nav class="primary-menu ml-auto">
+            <a id="mobile-menu-toggler" href="#"><i class="fas fa-bars"></i></a>
+            <ul>
+              <li class="current-menu-item"><a href="dashboard.html">Dashboard</a>
+              <li class="current-menu-item"><a href="currency_Convert.html">Money Exchange</a>
+              <li class="has-menu-child"><a href="#">Account</a>
+                <ul class="sub-menu">
+                  <li><a href="send-money.html">Send Money</a></li>
+                  <li><a href="deposit-money.html">Deposit Money</a></li>
+                  <li><a href="../faq.html">Faq</a></li>
+                </ul>
+              </li>
+              <li><a href="../contact(UserLoggedIN).html">Contact</a></li>
+              <li class="has-menu-child pro-menu-drop">
+                <a href="#">
+                  <div class="header-pro-thumb">
+                    <img id="profile-image1" class="rounded-circle"  alt="">
+                  </div>
+                  <h6 id="profile-name"></h6> <i class="fas fa-chevron-down"></i>
+                </a>
+                <ul class="dropdown-menu-md sub-menu profile-drop">
+                  <li class="dropdown-header">
+                    <div>
+                      <h5 id="profile-name1" class="hidden-xs m-b-0 text-primary text-ellipsis"></h5>
+                      <div id="profile-id" class="small text-muted"><span>Membership ID P14362606</span></div>
+                    </div>
+                  </li>
+                  <li>
+                    <hr class="mx-n3 mt-0">
+                  </li>
+                  <li class="nav__create-new-profile-link">
+                    <a href="profile.html">
+                      <span>View personal profile</span>
+                    </a>
+                  </li>
+                  <li class="divider"></li>
+                  <li class="nav__dropdown-menu-items">
+                    <a href="profile-notifications.html">
+                      <i class="icon icon-setting"></i>
+                      <span>Settings</span>
+                    </a>
+                  </li>
+                  <li class="nav__dropdown-menu-items">
+                    <a href="../index.html"><i class="icon icon-logout"></i><span id="btn-logout">Logout</span></a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!--end main header-->
+    </header>
+    <!-- Header end -->
+    <!--  Hero section-->
+    <div class="hero-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="progress" data-percentage="100">
+              <span class="progress-left">
+                <span class="progress-bar"></span>
+              </span>
+              <span class="progress-right">
+                <span class="progress-bar"></span>
+              </span>
+              <div class="progress-value">
+                <div class="profile-thumb mt-3 mb-4">
+                  <img id="profile-image" style="width:145px;height:143px;" class="rounded-circle"  alt="">
+                  <div class="profile-thumb-edit custom-file bg-primary text-white" data-toggle="tooltip" title="Profile Verified">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <p class="profile-name" id="profile-name2">Jay Ajani</p>
+          </div>
+          <div class="col-md-9">
+            <div class="row profile-completeness">
+              <div class="col-sm-6 col-md-3 mb-4 mb-md-0">
+                <div class="border rounded p-3 text-center"><span class="d-block text-10 text-light mt-2 mb-3"><i class="fas fa-mobile-alt bg-icon"></i></span> <span class="text-5 d-block text-success mt-4 mb-3"><i
+                      class="fas fa-check-circle"></i></span>
+                  <p class="mb-0">Mobile Added</p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3 mb-4 mb-md-0">
+                <div class="border rounded p-3 text-center"><span class="d-block text-10 text-light mt-2 mb-3"><i class="fas fa-envelope bg-icon"></i></span> <span class="text-5 d-block text-success mt-4 mb-3"><i
+                      class="fas fa-check-circle"></i></span>
+                  <p class="mb-0">Email Added</p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3 mb-4 mb-sm-0">
+                <div class="border rounded p-3 text-center"><span class="d-block text-10 text-light mt-2 mb-3"><i class="fas fa-credit-card bg-icon"></i></span>
+                  <span class="text-5 d-block text-light mt-4 mb-3"><i class="far fa-circle "></i></span>
+                  <p class="mb-0"><a class="btn-link stretched-link" href="#">Add Card</a></p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <div class="border rounded p-3 text-center"><span class="d-block text-10 text-light mt-2 mb-3"><i class="fas fa-university bg-icon"></i></span> <span class="text-5 d-block text-light mt-4 mb-3"><i class="far fa-circle "></i></span>
+                  <p class="mb-0"><a class="btn-link stretched-link" href="#">Add Bank</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of Hero section-->
+
+    <!-- Content  -->
+    <div id="content" class="py-4">
+      <div class="container">
+        <div class="row">
+          <!-- Left side bar -->
+          <aside class="col-lg-3 sidebar">
+            <!-- Pages List  -->
+            <div class="bg-light shadow-sm text-center  mb-4">
+              <div class="Profile-menu">
+                <ul class="nav secondary-nav">
+                  <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                  <li class="nav-item"><a class="nav-link" href="currency-accounts.html"><i class="fas fa-university"></i> Your Accounts</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="deposit-money.html"><i class="fas fa-plus"></i> Deposit Money</a></li>
+                  <li class="nav-item"><a class="nav-link" href="send-money.html"><i class="far fa-paper-plane"></i> Send Money</a></li>
+                  <li class="nav-item"><a class="nav-link" href="../money_Convert_Rate.html"><i class="fas fa-piggy-bank"></i> Money Convert Rate</a></li>
+
+                  <li class="nav-item"><a class="nav-link" href="transactions.html"><i class="fas fa-list-ul"></i>Transaction History</a></li>
+                  <li class="nav-item"><a class="nav-link" href="profile-notifications.html"><i class="fas fa-cog"></i>Settings</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Pages List End -->
+
+            <!-- Earn ? -->
+            <div class="bg-light shadow-sm text-center p-3 mb-4 side-block">
+              <div class="text-17 text-light my-3"><i class="fas fa-coins"></i></div>
+              <h2 class="tex9-3 font-weight-700 my-4">Earn $50</h2>
+              <p class=" opacity-8 mb-4">Have questions or concerns regrading</p>
+              <a href="#" class="btn btn-default btn-center">
+                <span class="bh"></span>
+                <span>Refer A friend</span></a>
+            </div>
+
+            <!-- Need Help? End -->
+            <div class="bg-light shadow-sm text-center p-3 mb-4 side-block">
+              <div class="text-17 text-light my-3"><i class="fas fa-comments"></i></div>
+              <h2 class="text-9 font-weight-407 my-4">Need Help?</h2>
+              <p class=" opacity-8 mb-4">Have questions or concerns regrading your account?<br>
+                Our experts are here to help!.</p>
+              <a href="start_Chat.html" class="btn btn-default btn-center">
+                <span class="bh"></span>
+                <span>Start Chat</span></a>
+            </div>
+            <!-- Need Help? End -->
+
+          </aside>
+          <!-- Left Panel End -->
+
+          <div class="col-lg-9">
+            <div class="bg-white">
+              <div class="container d-flex justify-content-center primary-menu ml-auto">
+                <ul class="nav pro-sec-menu secondary-nav alternate">
+                  <li class="has-menu-child nav-item active">
+                    <a class="nav-link" href="deposit-money.html">Deposit</a>
+
+                  </li>
+                  <li class="has-menu-child nav-item">
+                    <a class="nav-link" href="withdraw-money.html">Withdraw</a>
+                  </li>
+                  <li class="has-menu-child nav-item">
+                    <a class="nav-link" href="send-money.html">Send</a>
+                  </li>
+                  <li class="has-menu-child nav-item">
+                    <a class="nav-link" href="request-money.html">Request</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <h3 class="text-5 font-weight-700 d-flex admin-heading">Deposit Money</h3>
+            <div class="bg-white">
+              <div class="row">
+                <div class="col-md-8 col-lg-8 mx-auto ">
+                  <div class="bg-light shadow-md rounded p-3 p-sm-4 form-box">
+
+                    <h3 id="titleDeposit" class="text-5 msg-header">Deposit Money via MCW</h3>
+                    <!-- Deposit Money Confirm  -->
+                    <form id="form-send-money" method="post">
+
+                      <div class="alert alert-info rounded shadow-sm py-3 px-4 px-sm-2 mb-4">
+                        <div class="row">
+                          <p class="col-sm-5 opacity-7 text-sm-right mb-0 mb-sm-3">Account Holder
+                            Name:</p>
+                          <p id="accountHolder" class="col-sm-7">Smith Rhodes</p>
+                        </div>
+
+                        <div class="row">
+                          <p class="col-sm-5 opacity-7 text-sm-right mb-0 mb-sm-3">Currency Account:</p>
+                          <p id="currencyAccount" class="col-sm-7">EURO</p>
+                        </div>
+
+                        <div class="row">
+                          <p class="col-sm-5 opacity-7 text-sm-right mb-0">Account
+                            Number:</p>
+                          <p id="accountNumber" class="col-sm-7 mb-0">XXXXXXXXXXXX-9025</p>
+                        </div>
+                      </div>
+                      <h3 class="text-5 font-weight-400 mb-3">Details</h3>
+
+                      <p class="mb-1">Deposit Amount <span id="addMoneyAmount" class="text-3 float-right">1,000.00 USD</span></p>
+                      <p class="mb-1">Fees <span class="text-3 float-right">0.00 USD</span></p>
+                      <hr>
+                      <p class="font-weight-500">Total<span id="totalAmount" class="text-3 float-right">1,000.00 USD</span></p>
+                      <button id="confirm" class="btn btn-default btn-center btn-block">
+                        <span class="bh"></span>
+                        <span>Confirm</span>
+                      </button>
+                    </form>
+                    <!-- Deposit Money Confirm end -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Content end -->
+    <!-- Footer strat -->
+    <footer class="footer">
+      <div class="foo-top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-nav">
+                <h5>Access Us</h5>
+                <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Payment</a></li>
+                  <li><a href="#">Send Money</a></li>
+                  <li><a href="#">Receive Money</a></li>
+                  <li><a href="#">Fees</a></li>
+                  <li><a href="#">Services</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-nav">
+                <h5>Help Center</h5>
+                <ul>
+                  <li><a href="#">Customer Care</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                  <li><a href="#">Live Chat</a></li>
+                  <li><a href="#">Payment</a></li>
+                  <li><a href="#">Custom API</a></li>
+                  <li><a href="#">Affiliate</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-nav">
+                <h5>Follow Us</h5>
+                <ul>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Facebook</a></li>
+                  <li><a href="#">Twitter</a></li>
+                  <li><a href="#">Linkedin</a></li>
+                  <li><a href="#">Youtube</a></li>
+                  <li><a href="#">Forum</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-nav">
+                <h5>Partners</h5>
+                <ul>
+                  <li><a href="#">Refer A Frient</a></li>
+                  <li><a href="#">Affiliate Programs</a></li>
+                  <li><a href="#">Payment API</a></li>
+                  <li><a href="#">Partner Directory</a></li>
+                  <li><a href="#">Become A Partner</a></li>
+                  <li><a href="#">Find Locations</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-nav">
+                <h5>Services</h5>
+                <ul>
+                  <li><a href="#">Transfer Money</a></li>
+                  <li><a href="#">Saving Account</a></li>
+                  <li><a href="#">Online Shopping</a></li>
+                  <li><a href="#">Pay Bills</a></li>
+                  <li><a href="#">Credit Service</a></li>
+                  <li><a href="#">Ecommerce</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-address">
+                <h5>Stay In Touch</h5>
+                <address>
+                  <a href="malto:ervice@email.com">MCWallet@gmail.com</a>
+                  <a href="tel:+12345678921">+48 729 623 471</a>
+                </address>
+                <address>
+                  Berberysowa 02, <br>
+                  20-226 Lublin, <br>
+                  Poland
+                </address>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foo-btm">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="foo-navigation">
+                <ul>
+                  <li><a href="#">Terms and Conditions</a></li>
+                  <li><a href="#">Privacy & Policy</a></li>
+                  <li><a href="#">Legal</a></li>
+                  <li><a href="#">Notice</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="copyright">Copyright &copy; <a href="index.html">Multi-Currency Wallet</a>2019-2020</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Footer end -->
+
+  </div>
+  <!-- Document Wrapper end -->
+
+  <!-- Script -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/moment.min.js"></script>
+  <script src="js/daterangepicker.js"></script>
+  <script src="js/bootstrap-select.min.js"></script>
+  <script src="js/custom.js"></script>
+
+  <script src="../js/index.js"></script>
+
+
+
+
+  <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var userId = user.uid;
+        firebase.database().ref('Users/' + userId).once('value').then(
+          function(snapshot) {
+            var userName = (snapshot.val() && snapshot.val().userName);
+            var image = (snapshot.val() && snapshot.val().profileImgURL);
+            var image = (snapshot.val() && snapshot.val().profileImgURL);
+
+            $('#profile-name').empty().append(userName);
+            $('#profile-id').empty().append(userId);
+            $("#profile-image").attr("src", image);
+            $("#profile-image1").attr("src", image);
+            $('#profile-name1').empty().append(userName);
+            $('#profile-name2').empty().append(userName);
+            $('#accountHolder').empty().append(userName);
+
+          }
+        )
+      }
+    });
+  </script>
+
+  <script>
+    var counter = 0;
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    function transaction() {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          var userId = user.uid;
+          var from_accountNo = "XXXXXXXXXXXX-2335"
+          var to_accountNo = localStorage.getItem('destinationAccountNo');
+          var to_currency = localStorage.getItem('accountName');
+          //var from_ammount = 0;
+          //var totalAmount = (localStorage.getItem('to_ammount') - (localStorage.getItem('to_ammount') * 0.005)).toFixed(3) + " " + to_currency;
+          var totalFees = 0.00 + " USD";
+          var description = "Money-Added";
+          var addMoneyAmount = parseFloat(localStorage.getItem('addMoneyAmount')) + " " + to_currency;
+          var addMoneyAmount1 = parseFloat(localStorage.getItem('addMoneyAmount'));
+          var currentBalance = parseFloat(localStorage.getItem('currentBalance'));
+          var newAmountInAccount = (currentBalance + addMoneyAmount1).toFixed(3) + " " + to_currency;
+          var fromAmmount = addMoneyAmount;
+
+          localStorage.setItem('totalAmount', addMoneyAmount);
+
+          //  var newAmountInAccount = (parseFloat(localStorage.getItem('currentBalance')) - parseFloat(localStorage.getItem('from_ammount'))).toFixed(3);
+          var time = new Date();
+          var optionsMonth = {
+            month: "long",
+          };
+          var optionsDay = {
+            day: "2-digit",
+          };
+          var optionsYear = {
+            year: "numeric",
+          };
+
+
+          var transactionData = {
+            "paymentMethod": "Credit or Debit Card",
+            "fromAccountNo": from_accountNo,
+            "toAccountNo": to_accountNo,
+            "counter": 5000,
+            "uid": user.uid,
+            "totalFees": totalFees,
+            "description": description,
+            "fromAmmount": "+ " + fromAmmount,
+            "newAmountInAccount": newAmountInAccount,
+            "totalAmount": fromAmmount,
+            "time": time.toLocaleString('en-US', {
+              hour: 'numeric',
+              minute: 'numeric',
+              hour12: true,
+            }),
+            "month": time.toLocaleDateString('en-US', optionsMonth),
+            "date": time.toLocaleDateString('en-US', optionsDay),
+            "year": time.toLocaleDateString('en-US', optionsYear),
+          };
+
+          var rootRef = firebase.database().ref().child("Transactions");
+          var userID = firebase.auth().currentUser.uid;
+          var usersRef = rootRef.child(userID);
+
+
+          var key = usersRef.push();
+
+          usersRef.push(transactionData).then(function(usersRef) {
+            localStorage.setItem('transactionDetailsDb',usersRef.key);
+            window.location.href = "deposit-money-success.html"
+          });
+        };
+      });
+    };
+  </script>
+
+
+
+  <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var userId = user.uid;
+        var accountName = localStorage.getItem('accountName');
+
+        var ref = firebase.database().ref("Accounts/" + userId).orderByChild('accountName').equalTo(accountName);
+
+        ref.on("value", function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+            var childData = childSnapshot.val().accountNumber;
+            var childData1 = childSnapshot.val().currentBalance;
+            var key = childSnapshot.key;
+
+            localStorage.setItem('depositAccountKey', key);
+            localStorage.setItem('currentBalance', childData1);
+            localStorage.setItem('destinationAccountNo', childData);
+            $('#accountNumber').empty().append(childData);
+            loop.stop = true;
+          });
+        });
+      }
+    });
+  </script>
+
+
+  <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var userId = user.uid;
+
+        var paymentMethod = localStorage.getItem('paymentMethod');
+        var accountName = localStorage.getItem('accountName');
+        var addMoneyAmount = localStorage.getItem('addMoneyAmount');
+
+        $('#titleDeposit').empty().append("Deposit Money via " + paymentMethod);
+        $('#currencyAccount').empty().append(accountName);
+        $('#accountNumber').empty().append(accountNumber);
+        $("#addMoneyAmount").empty().append(addMoneyAmount + " " + accountName);
+        $("#totalAmount").empty().append(addMoneyAmount + " " + accountName);
+
+      }
+    });
+  </script>
+
+
+  <script>
+    $("#confirm").click(function() {
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          var userId = user.uid;
+          var accountName = localStorage.getItem('accountName');
+          var addMoneyAmount = parseFloat(localStorage.getItem('addMoneyAmount'));
+          var currentBalance = parseFloat(localStorage.getItem('currentBalance'));
+          var totalBalance = (currentBalance + addMoneyAmount).toFixed(3);
+          var key = localStorage.getItem('depositAccountKey');
+
+          var currentBalance = parseFloat(localStorage.getItem('currentBalance')) + " " + accountName;
+          localStorage.setItem('afterTransactionMoney', currentBalance);
+
+
+          // window.alert(key);
+
+          firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+              var userId = user.uid;
+              var rootRef = firebase.database().ref("Accounts/" + userId + "/" + key);
+
+              // Update Current Balance in Database:-
+              rootRef.update({
+                currentBalance: totalBalance
+              }).then(success => {
+                  console.log('success', success);
+                  transaction();
+                },
+                error => {
+                  console.log('error', error);
+                }
+              );
+            }
+          });
+
+        }
+      });
+    });
+  </script>
+
+
+
+
+
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        window.location.href = "../login.html";
+      };
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!--TITLE-->
+  <title>Multi-Currency Wallet-dashboard</title>
+
+  <!-- Favicon icon -->
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+  <!--Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
+
+</head>
+
+<body>
+
+  <!-- <script type="text/javascript">
+    $("#jay").click(function() {
+      window.alert("Clicked");
+    });
+  </script> -->
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div id="status"></div>
+  </div>
+
+  <!-- Document Wrapper -->
+  <div id="main-wrapper">
+    <!-- Middle Panel  -->
+    <div class="col-lg-9">
+      <h2 class="font-weight-400 admin-heading">MCWallet support agent.</h2>
+      <ul id="messages">
+
+      </ul>
+
+      <div class="bg-light shadow-sm rounded p-4 mb-4">
+        <h3 class="text-5 font-weight-400 mb-4">MCW Contact <span class="text-muted text-4">(24*7 Available)</span>
+        </h3>
+
+        <input id="message" placeholder="Enter message" autocomplete="off">
+        <input type="submit" id="submit">
+
+      </div>
+
+    </div>
+  </div>
+  </div>
+  </div>
+  <!-- Content end -->
+  </div>
+  <!-- Document Wrapper end -->
+
+  <!-- Script -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/moment.min.js"></script>
+  <script src="js/daterangepicker.js"></script>
+  <script src="js/bootstrap-select.min.js"></script>
+  <script src="js/custom.js"></script>
+
+  <script src="../js/index.js"></script>
+
+  <script type="text/javascript">
+    var counter = 0;
+  </script>
+
+
+
+  <script>
+    var myName = "MCW Employee";
+    $("#submit").click(function() {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          var message = $("#message").val();
+
+          if (message != "") {
+
+            var chatData = {
+              "sender": myName,
+              "message": message,
+            };
+
+            var rootRef = firebase.database().ref().child("Messages/" + user.uid);
+
+            rootRef.push(chatData, function(error) {
+              if (error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+
+                console.log(errorCode);
+                console.log(errorMessage);
+
+                window.alert("Message : " + errorMessage);
+              } else {
+                $("#message").empty().append();
+              }
+            });
+          } else {
+            window.alert("please write your question!")
+          }
+        }
+      });
+    });
+  </script>
+
+  <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var userId = user.uid;
+        var dbMessages = firebase.database().ref("Messages/" + userId);
+
+        dbMessages.on("value", function(messages) {
+          if (messages.exists()) {
+            counter = counter + 1;
+
+            var messagesHtml = "";
+
+            messages.forEach(function(singleMessage) {
+
+              messagesHtml += "<li>";
+              messagesHtml += singleMessage.val().sender + ": " + singleMessage.val().message;
+              messagesHtml += "</li>";
+
+            });
+
+            //  $("#accountData").append(accountUserName);
+            $("#messages").empty().append(messagesHtml);
+
+          }
+        });
+      }
+    });
+  </script>
+
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        window.location.href = "../login.html";
+      };
+    });
+  </script>
+</body>
+
+</html>

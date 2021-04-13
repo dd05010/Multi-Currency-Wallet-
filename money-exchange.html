@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Currency Convert</title>
+
+  <link rel="stylesheet" href="css/popcalc.css">
+  <script src="js/jquery.js" charset="utf-8"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="js/scripts.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <button type="button" class="openbtn" name="button">Currency Convert</button>
+
+    <div class="content">
+      <span class="closebtn">+</span>
+
+      <form name="Currency Convert">
+        <div class="currency">
+          <select id="from_currency">
+            <option value="AUD">AED</option>
+            <option value="EUR">ARS</option>
+            <option value="GBP">AUD</option>
+            <option value="HKD">AUD</option>
+            <option value="INR">BGN</option>
+            <option value="JPY">BRL</option>
+            <option value="NOK">AED</option>
+            <option value="NZD">ARS</option>
+            <option value="MYR">BGN</option>
+            <option value="USD">BRL</option>
+          </select>
+          <input type="number" id="from_ammount" placeholder="Enter Amount" value=1 />
+        </div>
+        <div class="middle">
+          <button id="exchange">
+            <i class="fas fa-exchange-alt"></i>
+          </button>
+          <div class="rate" id="rate"></div>
+        </div>
+        <div class="currency">
+          <select id="to_currency">
+            <option value="AUD">AUD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="HKD">HKD</option>
+            <option value="INR" selected>INR</option>
+            <option value="JPY">JPY</option>
+            <option value="NOK">NOK</option>
+            <option value="NZD">NZD</option>
+            <option value="MYR">MYR</option>
+            <option value="USD">USD</option>
+          </select>
+          <input type="number" id="to_ammount" placeholder="0" />
+        </div>
+        <script src="moneyExchangeFunc.js"></script>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="cover"></div>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.openbtn').on('click',function(){
+        $('.content').fadeIn(1000);
+       $('.cover').fadeIn(1000);
+      });
+      $('.closebtn').on('click',function(){
+        $('.content').fadeOut();
+       $('.cover').fadeOut();
+    });
+  });
+  </script>
+</body>
+
+</html>

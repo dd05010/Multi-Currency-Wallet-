@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Favicon icon -->
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+
+  <!-- fontAwesome -->
+  <link rel="stylesheet" href="css/all.min.css">
+  <!-- 7 stroke icon -->
+  <link rel="stylesheet" href="css/pe-icon-7-stroke.css">
+
+  <link rel="stylesheet" href="css/roysha-icons.css">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="css/nice-select.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- custom css if you need -->
+  <link rel="stylesheet" href="css/custom.css">
+
+  <!-- Firebase -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
+
+  <title>Multi-Currency Wallet-Register</title>
+</head>
+
+<body class="home-one">
+  <header class="header04" style="background-Color:white">
+    <div class="container d-flex align-items-center">
+      <a class="logo" href="index.html">
+        <img src="images/logo.png" alt="">
+      </a>
+    </div>
+  </header>
+
+  <section class="banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 m-auto">
+          <div class="ban-content text-center">
+            <h1>Personal Information</h1>
+          </div>
+          <div class="breadcrumb">
+            <a href="signup.html">Sign Up</a>
+            <a href="#">Personal information</a>
+            <span>Multi-currency Wallet</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="signup-login">
+    <div class="content-box" style="text-align:right">
+      <h2>Money without borders</h2>
+      <p>Fast Money Transfer Network</p>
+    </div>
+
+    <div class="sl-form-wrap">
+      <div class="col-lg-16" style="text-align:center">
+        <h2>One more step</h2>
+        <h4>Add your personal information</h4>
+      </div>
+
+
+      <div class="col-lg-14">
+        <hr>
+        <form action="#" class="sl-form">
+
+
+          <div class="form-group col-16 col-sm-8 form-group">
+            <label>Select your profile picture here</label>
+            <input type="file" class="form-control" id="main-image">
+            <div class="invalid-feedback">
+              Please choose a valid picture.
+            </div>
+          </div>
+          <div class="form-group form-group col-16 col-sm-8 form-group">
+            <img id="selected-image" style="width:100px;height:100px;" src=" #">
+          </div>
+
+          <div class="form-group col-16 col-sm-8 form-group">
+            <div class="progress bg-secondary">
+              <div class="progress-bar bg-success" id="upload-progress" style="width: 0%">0%
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-16 col-sm-8 form-group">
+            <button id="save-profile" type="button" class="btn btn-filled btn-round">Upload</button>
+          </div>
+
+          <div id="result">
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- JS -->
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/owl.carousel2.thumbs.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/jquery.nice-select.min.js"></script>
+  <script src="../../cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+  <script src="../../s3-us-west-2.amazonaws.com/s.cdpn.io/106949/jquery.onscreen.js"></script>
+  <script src="js/scripts.js"></script>
+
+  <script>
+    var validImagetypes = [
+      "image/gif",
+      "image/jpeg",
+      "image/png"
+    ];
+
+    $("#selected-image").hide();
+
+    function previewImage(image_profile) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        $("#selected-image").attr('src', e.target.result);
+        $("#selected-image").fadeIn();
+      }
+      reader.readAsDataURL(image_profile.files[0]);
+    }
+
+    $("#main-image").change(function() {
+      previewImage(this);
+    });
+
+    $("#save-profile").click(function() {
+      $("#main-image").removeClass("is-invalid");
+
+      var picture = $("#main-image").prop("files")[0];
+
+      if (picture == null) {
+        $("#main-image").addClass("is-invalid");
+        return;
+      }
+
+      if ($.inArray(picture["type"], validImagetypes) < 0) {
+        $("#main-image").addClass("is-invalid");
+        return;
+      }
+      //*************************** Upload and Save to Firebase Storage and Firebase Database *********************//
+
+      var databaseRef = firebase.database().ref().child("Profiles");
+
+      databaseRef.once("value").then(function(snapshot) {
+        var name = picture["name"];
+        var dateStr = new Date().getTime();
+        var fileCompleteName = name + "_" + dateStr;
+
+        var storageRef = firebase.storage().ref("Profile Images");
+        var profileStorageRef = storageRef.child(fileCompleteName);
+
+        var uploadTask = profileStorageRef.put(picture);
+
+        uploadTask.on("state_changed",
+          function(snapshot) {
+            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            $("#upload-progress").html(Math.round(percentage) + "%");
+            $("#upload-progress").attr("style", "width:" + percentage + "%")
+          },
+
+          function error(err) {
+
+          },
+
+
+          function complete() {
+            var user = firebase.auth().currentUser;
+            var userName;
+            firebase.database().ref('Users/' + user.uid).once('value').then(function(snapshot) {
+              var fName = (snapshot.val() && snapshot.val().firstName);
+              var sName = (snapshot.val() && snapshot.val().secondName);
+
+              userName = fName + " " + sName;
+            });
+
+            // Store url into databse.firebase "Users"
+
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadUrl) {
+              var time = new Date();
+
+              var options = {
+                weekday: "long",
+                month: "long",
+                day: "2-digit",
+                year: "numeric",
+              };
+
+              var profileData = {
+                "image": downloadUrl,
+                "uid": user.uid,
+                "fullName": userName,
+                "time": time.toLocaleString('en-US', {
+                  hour: 'numeric',
+                  minute: 'numeric',
+                  hour12: true
+                }),
+                "date": time.toLocaleDateString('en-US', options),
+              };
+
+              var profilePostRef = databaseRef.push();
+
+              profilePostRef.set(profileData, function(err) {
+                if (err) {
+                  $("#result").attr("class", "alert alert-danger");
+                  $("#result").html(err.message);
+                } else {
+                  $("#result").attr("class", "alert alert-success");
+                  $("#result").html("Profile has been uploaded successfully.");
+
+                  window.location.href = "../mcw-user/dashboard.html";
+                }
+              });
+
+            });
+
+          }
+        );
+        //*************************** Upload and Save to Firebase Storage and Firebase Database *********************//
+      });
+
+    });
+  </script>
+
+
+
+
+  <script src="js/index.js"></script>
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+
+            var userID = firebase.auth().currentUser.uid;
+            firebase.database().ref('Users/' + userID).once('value').then(function(snapshot) {
+              if (snapshot.val()) {
+                window.location.href = "../mcw-user/dashboard.html";
+              }
+            });
+          });
+  </script>
+
+</body>
+
+</html>

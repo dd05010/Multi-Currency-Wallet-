@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!--TITLE-->
+  <title>Multi-Currency Wallet-Confirmation Of Payment</title>
+
+  <!-- Favicon icon -->
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+
+  <!--Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
+
+</head>
+
+<body>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+  <div class="container">
+    <div class="row">
+
+      <div class="receipt-main col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+        <div class="row">
+          <div class="receipt-header">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="receipt-left">
+                <a href="dashboard.html">
+                  <img class="img-responsive" src="images/logo.png" style="width: 150px; border-radius: 0px;">
+                </a>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+              <div class="receipt-right">
+                <h5>Multi Currency Wallet</h5>
+                <p>+48 729 623 471 <i class="fa fa-phone"></i></p>
+                <p>MCWallet@gmail.com<i class="fa fa-envelope-o"></i></p>
+                <p>Poland<i class="fa fa-location-arrow"></i></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <h2 style="text-align:center">Conformation of Transaction</h2>
+
+        </div>
+
+        <div>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Destination Account</th>
+                <th>Transaction Amount</th>
+                <th>Transaction Date</th>
+              </tr>
+            </thead>
+            <tbody id="transaction">
+              <tr>
+                <td class="col-sm-3">Payment Method</td>
+                <td id="paymentMethod" class="col-md-8"><i class="fa fa-inr"></i> </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row">
+          <div class="receipt-header receipt-header-mid receipt-footer">
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+              <div class="receipt-right">
+                <p id="date"><b>Date: </b></p>
+                <h5 style="color: rgb(140, 140, 140);">Thank you!</h5>
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+              <div class="receipt-left">
+                <h5>Provided By~ MCW Ltd.</h5>
+                <h5><input id="printpagebutton" type="button" value="Print this page" onclick="printpage()" /></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/moment.min.js"></script>
+  <script src="js/daterangepicker.js"></script>
+  <script src="js/bootstrap-select.min.js"></script>
+  <script src="js/custom.js"></script>
+
+  <script src="../js/index.js"></script>
+
+
+
+  <script type="text/javascript">
+    function printpage() {
+      //Get the print button and put it into a variable
+      var printButton = document.getElementById("printpagebutton");
+      //Set the print button visibility to 'hidden'
+      printButton.style.visibility = 'hidden';
+      //Print the page content
+      window.print()
+      //Set the print button to 'visible' again
+      //[Delete this line if you want it to stay hidden after printing]
+      printButton.style.visibility = 'visible';
+    }
+  </script>
+
+  <script type="text/javascript">
+    var counter = 0;
+  </script>
+
+
+  <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var userId = user.uid;
+
+        var dbAccounts = firebase.database().ref("Transactions/" + userId);
+
+        dbAccounts.on("value", function(accounts) {
+          if (accounts.exists()) {
+
+            var accountsHtml = "";
+            var accounts1Html = "";
+            accounts.forEach(function(singleAccount) {
+
+              counter = counter + 1;
+
+              accountsHtml += "<tr>";
+              accountsHtml += "<td class='col-sm-3'>" + singleAccount.val().description + "</td>";
+              accountsHtml += "<td id='paymentMethod' class='col-sm-3'><i class='fa fa-inr'></i>" + singleAccount.val().toAccountNo + " </td>";
+              accountsHtml += "<td id='paymentMethod' class='col-sm-3'><i class='fa fa-inr'></i>" + singleAccount.val().fromAmmount + " </td>";
+              accountsHtml += "<td id='paymentMethod' class='col-sm-3'><i class='fa fa-inr'></i>" + singleAccount.val().date + "-" + singleAccount.val().month + "-" + singleAccount.val().year + " </td>";
+              accountsHtml += "</tr>";
+
+            });
+
+            $("#transaction").empty().append(accountsHtml);
+
+          }
+        });
+      }
+    });
+  </script>
+
+
+  <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var userId = user.uid;
+
+        var date = Date();
+        $('#date').empty().append(new Date(date).toUTCString());
+      }
+    });
+  </script>
+
+
+</body>
+
+</html>

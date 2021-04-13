@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!--TITLE-->
+  <title>Multi-Currency Wallet-dashboard</title>
+
+  <!-- Favicon icon -->
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+  <!--Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
+
+</head>
+
+<body>
+
+  <script type="text/javascript">
+    $("#jay").click(function() {
+      window.alert("Clicked");
+    });
+  </script>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div id="status"></div>
+  </div>
+
+  <!-- Document Wrapper -->
+  <div id="main-wrapper">
+    <!-- Header start -->
+    <header class="header02">
+      <div class="header-top">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-sm-8">
+              <div class="d-inline-flex ml-auto">
+                <a href="#" class="top-text"><i class="fas fa-phone-alt"></i> MCWallet@gmail.com</a>
+                <a href="#" class="top-text"><i class="fas fa-envelope"></i> +48 729 623 471</a>
+              </div>
+            </div>
+            <div class="col-sm-4 text-sm-right">
+              <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i> </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--header -->
+      <div class="header-main">
+        <div class="container d-flex align-items-center">
+          <a class="logo d-inline-flex" href="dashboard.html">
+            <img src="images/logo.png" alt="">
+          </a>
+          <nav class="primary-menu ml-auto">
+            <a id="mobile-menu-toggler" href="#"><i class="fas fa-bars"></i></a>
+            <ul>
+              <li class="current-menu-item"><a href="dashboard.html">Dashboard</a>
+              <li class="current-menu-item"><a href="currency_Convert.html">Money Exchange</a>
+              <li class="has-menu-child"><a href="#">Account</a>
+                <ul class="sub-menu">
+                  <li><a href="send-money.html">Send Money</a></li>
+                  <li><a href="deposit-money.html">Deposit Money</a></li>
+                  <li><a href="../faq.html">Faq</a></li>
+                </ul>
+              </li>
+              <li><a href="../contact(UserLoggedIN).html">Contact</a></li>
+              <li class="has-menu-child pro-menu-drop">
+                <a href="#">
+                  <div class="header-pro-thumb">
+                    <img id="profile-image1" class="rounded-circle"  alt="">
+                  </div>
+                  <h6 id="profile-name"></h6> <i class="fas fa-chevron-down"></i>
+                </a>
+                <ul class="dropdown-menu-md sub-menu profile-drop">
+                  <li class="dropdown-header">
+                    <div>
+                      <h5 id="profile-name1" class="hidden-xs m-b-0 text-primary text-ellipsis"></h5>
+                      <div id="profile-id" class="small text-muted"><span>Membership ID P14362606</span></div>
+                    </div>
+                  </li>
+                  <li>
+                    <hr class="mx-n3 mt-0">
+                  </li>
+                  <li class="nav__create-new-profile-link">
+                    <a href="profile.html">
+                      <span>View personal profile</span>
+                    </a>
+                  </li>
+                  <li class="divider"></li>
+                  <li class="nav__dropdown-menu-items">
+                    <a href="profile-notifications.html">
+                      <i class="icon icon-setting"></i>
+                      <span>Settings</span>
+                    </a>
+                  </li>
+                  <li class="nav__dropdown-menu-items">
+                    <a href="../index.html"><i class="icon icon-logout"></i><span id="btn-logout">Logout</span></a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!--end main header-->
+    </header>
+    <!-- Header end -->
+    <!--  Hero section-->
+    <div class="hero-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="progress" data-percentage="100">
+              <span class="progress-left">
+                <span class="progress-bar"></span>
+              </span>
+              <span class="progress-right">
+                <span class="progress-bar"></span>
+              </span>
+              <div class="progress-value">
+                <div class="profile-thumb mt-3 mb-4">
+                  <img id="profile-image" style="width:145px;height:143px;" class="rounded-circle"  alt="">
+                  <div class="profile-thumb-edit custom-file bg-primary text-white" data-toggle="tooltip" title="Profile Verified">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <p class="profile-name" id="profile-name2">Jay Ajani</p>
+          </div>
+          <div class="col-md-9">
+            <div class="row profile-completeness">
+              <div class="col-sm-6 col-md-3 mb-4 mb-md-0">
+                <div class="border rounded p-3 text-center"><span class="d-block text-10 text-light mt-2 mb-3"><i class="fas fa-mobile-alt bg-icon"></i></span> <span class="text-5 d-block text-success mt-4 mb-3"><i
+                      class="fas fa-check-circle"></i></span>
+                  <p class="mb-0">Mobile Added</p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3 mb-4 mb-md-0">
+                <div class="border rounded p-3 text-center"><span class="d-block text-10 text-light mt-2 mb-3"><i class="fas fa-envelope bg-icon"></i></span> <span class="text-5 d-block text-success mt-4 mb-3"><i
+                      class="fas fa-check-circle"></i></span>
+                  <p class="mb-0">Email Added</p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3 mb-4 mb-sm-0">
+                <div class="border rounded p-3 text-center"><span class="d-block text-10 text-light mt-2 mb-3"><i class="fas fa-credit-card bg-icon"></i></span>
+                  <span class="text-5 d-block text-light mt-4 mb-3"><i class="far fa-circle "></i></span>
+                  <p class="mb-0"><a class="btn-link stretched-link" href="#">Add Card</a></p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <div class="border rounded p-3 text-center"><span class="d-block text-10 text-light mt-2 mb-3"><i class="fas fa-university bg-icon"></i></span> <span class="text-5 d-block text-light mt-4 mb-3"><i class="far fa-circle "></i></span>
+                  <p class="mb-0"><a class="btn-link stretched-link" href="#">Add Bank</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of Hero section-->
+
+    <!-- Content  -->
+    <div id="content" class="py-4">
+      <div class="container">
+        <div class="row">
+          <!-- Left side bar -->
+          <aside class="col-lg-3 sidebar">
+            <!-- Pages List  -->
+            <div class="bg-light shadow-sm text-center  mb-4">
+              <div class="Profile-menu">
+                <ul class="nav secondary-nav">
+                  <li class="nav-item active"><a class="nav-link " href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                  <li class="nav-item"><a class="nav-link" href="currency-accounts.html"><i class="fas fa-university"></i> Your Accounts</a></li>
+                  <li class="nav-item"><a class="nav-link" href="deposit-money.html"><i class="fas fa-plus"></i> Deposit Money</a></li>
+                  <li class="nav-item"><a class="nav-link" href="send-money.html"><i class="far fa-paper-plane"></i> Send Money</a></li>
+                  <li class="nav-item"><a class="nav-link" href="../money_Convert_Rate.html"><i class="fas fa-piggy-bank"></i> Money Convert Rate</a></li>
+
+                  <li class="nav-item"><a class="nav-link" href="transactions.html"><i class="fas fa-list-ul"></i>Transaction History</a></li>
+                  <li class="nav-item"><a class="nav-link" href="profile-notifications.html"><i class="fas fa-cog"></i>Settings</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Pages List End -->
+
+            <!-- Earn ? -->
+            <div class="bg-light shadow-sm text-center p-3 mb-4 side-block">
+              <div class="text-17 text-light my-3"><i class="fas fa-coins"></i></div>
+              <h2 class="tex9-3 font-weight-700 my-4">Earn $50</h2>
+              <p class=" opacity-8 mb-4">Have questions or concerns regrading</p>
+              <a href="#" class="btn btn-default btn-center">
+                <span class="bh"></span>
+                <span>Refer A friend</span></a>
+            </div>
+
+            <!-- Need Help? End -->
+            <div class="bg-light shadow-sm text-center p-3 mb-4 side-block">
+              <div class="text-17 text-light my-3"><i class="fas fa-comments"></i></div>
+              <h2 class="text-9 font-weight-407 my-4">Need Help?</h2>
+              <p class=" opacity-8 mb-4">Have questions or concerns regrading your account?<br>
+                Our experts are here to help!.</p>
+              <a href="start_Chat.html" class="btn btn-default btn-center">
+                <span class="bh"></span>
+                <span>Start Chat</span></a>
+            </div>
+            <!-- Need Help? End -->
+
+          </aside>
+          <!-- Left Panel End -->
+
+          <!-- Middle Panel -->
+          <div class="col-lg-9">
+            <h3 class="text-5 font-weight-700 d-flex admin-heading">Personal Profile</h3>
+
+            <!-- Personal Details  -->
+            <div class="bg-light shadow-sm rounded infoItems">
+
+              <a href="#edit-personal-details" class="float-right text-1 text-uppercase text-muted btn-link pbtn" data-id="edit-personal-details"><i class="fas fa-edit mr-1"></i>Update</a>
+              <div class="row">
+                <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Name</p>
+                <p id="userName" class="col-sm-9">Jhon Due</p>
+              </div>
+              <div class="row">
+                <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Date of Birth</p>
+                <p id="dateOfBirth" class="col-sm-9">16-02-1978</p>
+              </div>
+              <div class="row">
+                <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Address</p>
+                <p id="address" class="col-sm-9">1601 Austin Farms Rd, Ortonville, MI, 48462, Suite
+                  100-18, San Ditego, California - 2434, United States.</p>
+              </div>
+
+              <div id="edit-personal-details" class="accord">
+                <div>
+                  <div class="modal-content">
+
+                    <div class="modal-header">
+                      <h5 class="modal-title font-weight-400">Personal Details</h5>
+                      <button type="button" class="close font-weight-400" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body p-4">
+                      <form id="personaldetails" method="post">
+                        <div class="row">
+                          <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                              <label for="firstName">First Name</label>
+                              <input type="text" class="form-control" data-bv-field="firstName" id="firstName" required placeholder="Krishna Vasudev">
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                              <label for="fullName">Second Name</label>
+                              <input id="fullName" type="text" class="form-control" data-bv-field="fullName" required placeholder="Yadav">
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label for="birthDate">Date of Birth</label>
+                              <div class="position-relative">
+                                <input id="birthDate" type="text" class="form-control" required placeholder="12-09-1982">
+                                <span class="icon-inside"><i class="fas fa-calendar-alt"></i></span></div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <h3 class="text-5 font-weight-400 mt-3">Address</h3>
+                            <hr>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label for="address1">Address</label>
+                              <input type="text" class="form-control" data-bv-field="address" id="address1" required placeholder="From Gokul, India">
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                              <label for="city">City</label>
+                              <input id="newCity" value="San Ditego" type="text" class="form-control" required placeholder="Gokul">
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                              <label for="inputCountry">Country</label>
+                              <select class="custom-select" id="newCountry" name="country_id">
+                                <option value="244">Aaland Islands</option>
+                                <option value="1">Afghanistan</option>
+                                <option value="2">Albania</option>
+                                <option value="3">Algeria</option>
+                                <option value="4">American Samoa</option>
+                                <option value="5">Andorra</option>
+                                <option value="6">Angola</option>
+                                <option value="7">Anguilla</option>
+                                <option value="8">Antarctica</option>
+                                <option value="9">Antigua and Barbuda</option>
+                                <option value="10">Argentina</option>
+                                <option value="11">Armenia</option>
+                                <option value="12">Aruba</option>
+                                <option value="252">Ascension Island (British)</option>
+                                <option value="13">Australia</option>
+                                <option value="14">Austria</option>
+                                <option value="15">Azerbaijan</option>
+                                <option value="16">Bahamas</option>
+                                <option value="17">Bahrain</option>
+                                <option value="18">Bangladesh</option>
+                                <option value="19">Barbados</option>
+                                <option value="20">Belarus</option>
+                                <option value="21">Belgium</option>
+                                <option value="22">Belize</option>
+                                <option value="23">Benin</option>
+                                <option value="24">Bermuda</option>
+                                <option value="25">Bhutan</option>
+                                <option value="26">Bolivia</option>
+                                <option value="245">Bonaire, Sint Eustatius and Saba
+                                </option>
+                                <option value="27">Bosnia and Herzegovina</option>
+                                <option value="28">Botswana</option>
+                                <option value="29">Bouvet Island</option>
+                                <option value="30">Brazil</option>
+                                <option value="31">British Indian Ocean Territory</option>
+                                <option value="32">Brunei Darussalam</option>
+                                <option value="33">Bulgaria</option>
+                                <option value="34">Burkina Faso</option>
+                                <option value="35">Burundi</option>
+                                <option value="36">Cambodia</option>
+                                <option value="37">Cameroon</option>
+                                <option value="38">Canada</option>
+                                <option value="251">Canary Islands</option>
+                                <option value="39">Cape Verde</option>
+                                <option value="40">Cayman Islands</option>
+                                <option value="41">Central African Republic</option>
+                                <option value="42">Chad</option>
+                                <option value="43">Chile</option>
+                                <option value="44">China</option>
+                                <option value="45">Christmas Island</option>
+                                <option value="46">Cocos (Keeling) Islands</option>
+                                <option value="47">Colombia</option>
+                                <option value="48">Comoros</option>
+                                <option value="49">Congo</option>
+                                <option value="50">Cook Islands</option>
+                                <option value="51">Costa Rica</option>
+                                <option value="52">Cote D'Ivoire</option>
+                                <option value="53">Croatia</option>
+                                <option value="54">Cuba</option>
+                                <option value="246">Curacao</option>
+                                <option value="55">Cyprus</option>
+                                <option value="56">Czech Republic</option>
+                                <option value="237">Democratic Republic of Congo</option>
+                                <option value="57">Denmark</option>
+                                <option value="58">Djibouti</option>
+                                <option value="59">Dominica</option>
+                                <option value="60">Dominican Republic</option>
+                                <option value="61">East Timor</option>
+                                <option value="62">Ecuador</option>
+                                <option value="63">Egypt</option>
+                                <option value="64">El Salvador</option>
+                                <option value="65">Equatorial Guinea</option>
+                                <option value="66">Eritrea</option>
+                                <option value="67">Estonia</option>
+                                <option value="68">Ethiopia</option>
+                                <option value="69">Falkland Islands (Malvinas)</option>
+                                <option value="70">Faroe Islands</option>
+                                <option value="71">Fiji</option>
+                                <option value="72">Finland</option>
+                                <option value="74">France, Metropolitan</option>
+                                <option value="75">French Guiana</option>
+                                <option value="76">French Polynesia</option>
+                                <option value="77">French Southern Territories</option>
+                                <option value="126">FYROM</option>
+                                <option value="78">Gabon</option>
+                                <option value="79">Gambia</option>
+                                <option value="80">Georgia</option>
+                                <option value="81">Germany</option>
+                                <option value="82">Ghana</option>
+                                <option value="83">Gibraltar</option>
+                                <option value="84">Greece</option>
+                                <option value="85">Greenland</option>
+                                <option value="86">Grenada</option>
+                                <option value="87">Guadeloupe</option>
+                                <option value="88">Guam</option>
+                                <option value="89">Guatemala</option>
+                                <option value="256">Guernsey</option>
+                                <option value="90">Guinea</option>
+                                <option value="91">Guinea-Bissau</option>
+                                <option value="92">Guyana</option>
+                                <option value="93">Haiti</option>
+                                <option value="94">Heard and Mc Donald Islands</option>
+                                <option value="95">Honduras</option>
+                                <option value="96">Hong Kong</option>
+                                <option value="97">Hungary</option>
+                                <option value="98">Iceland</option>
+                                <option value="99">India</option>
+                                <option value="100">Indonesia</option>
+                                <option value="101">Iran (Islamic Republic of)</option>
+                                <option value="102">Iraq</option>
+                                <option value="103">Ireland</option>
+                                <option value="254">Isle of Man</option>
+                                <option value="104">Israel</option>
+                                <option value="105">Italy</option>
+                                <option value="106">Jamaica</option>
+                                <option value="107">Japan</option>
+                                <option value="257">Jersey</option>
+                                <option value="108">Jordan</option>
+                                <option value="109">Kazakhstan</option>
+                                <option value="110">Kenya</option>
+                                <option value="111">Kiribati</option>
+                                <option value="113">Korea, Republic of</option>
+                                <option value="253">Kosovo, Republic of</option>
+                                <option value="114">Kuwait</option>
+                                <option value="115">Kyrgyzstan</option>
+                                <option value="116">Lao People's Democratic Republic
+                                </option>
+                                <option value="117">Latvia</option>
+                                <option value="118">Lebanon</option>
+                                <option value="119">Lesotho</option>
+                                <option value="120">Liberia</option>
+                                <option value="121">Libyan Arab Jamahiriya</option>
+                                <option value="122">Liechtenstein</option>
+                                <option value="123">Lithuania</option>
+                                <option value="124">Luxembourg</option>
+                                <option value="125">Macau</option>
+                                <option value="127">Madagascar</option>
+                                <option value="128">Malawi</option>
+                                <option value="129">Malaysia</option>
+                                <option value="130">Maldives</option>
+                                <option value="131">Mali</option>
+                                <option value="132">Malta</option>
+                                <option value="133">Marshall Islands</option>
+                                <option value="134">Martinique</option>
+                                <option value="135">Mauritania</option>
+                                <option value="136">Mauritius</option>
+                                <option value="137">Mayotte</option>
+                                <option value="138">Mexico</option>
+                                <option value="139">Micronesia, Federated States of</option>
+                                <option value="140">Moldova, Republic of</option>
+                                <option value="141">Monaco</option>
+                                <option value="142">Mongolia</option>
+                                <option value="242">Montenegro</option>
+                                <option value="143">Montserrat</option>
+                                <option value="144">Morocco</option>
+                                <option value="145">Mozambique</option>
+                                <option value="146">Myanmar</option>
+                                <option value="147">Namibia</option>
+                                <option value="148">Nauru</option>
+                                <option value="149">Nepal</option>
+                                <option value="150">Netherlands</option>
+                                <option value="151">Netherlands Antilles</option>
+                                <option value="152">New Caledonia</option>
+                                <option value="153">New Zealand</option>
+                                <option value="154">Nicaragua</option>
+                                <option value="155">Niger</option>
+                                <option value="156">Nigeria</option>
+                                <option value="157">Niue</option>
+                                <option value="158">Norfolk Island</option>
+                                <option value="112">North Korea</option>
+                                <option value="159">Northern Mariana Islands</option>
+                                <option value="160">Norway</option>
+                                <option value="161">Oman</option>
+                                <option value="162">Pakistan</option>
+                                <option value="163">Palau</option>
+                                <option value="247">Palestinian Territory, Occupied</option>
+                                <option value="164">Panama</option>
+                                <option value="165">Papua New Guinea</option>
+                                <option value="166">Paraguay</option>
+                                <option value="167">Peru</option>
+                                <option value="168">Philippines</option>
+                                <option value="169">Pitcairn</option>
+                                <option selected="selected" value="170">Poland</option>
+                                <option value="171">Portugal</option>
+                                <option value="172">Puerto Rico</option>
+                                <option value="173">Qatar</option>
+                                <option value="174">Reunion</option>
+                                <option value="175">Romania</option>
+                                <option value="176">Russian Federation</option>
+                                <option value="177">Rwanda</option>
+                                <option value="178">Saint Kitts and Nevis</option>
+                                <option value="179">Saint Lucia</option>
+                                <option value="180">Saint Vincent and the Grenadines
+                                </option>
+                                <option value="181">Samoa</option>
+                                <option value="182">San Marino</option>
+                                <option value="183">Sao Tome and Principe</option>
+                                <option value="184">Saudi Arabia</option>
+                                <option value="185">Senegal</option>
+                                <option value="243">Serbia</option>
+                                <option value="186">Seychelles</option>
+                                <option value="187">Sierra Leone</option>
+                                <option value="188">Singapore</option>
+                                <option value="189">Slovak Republic</option>
+                                <option value="190">Slovenia</option>
+                                <option value="191">Solomon Islands</option>
+                                <option value="192">Somalia</option>
+                                <option value="193">South Africa</option>
+                                <option value="194">South Georgia &amp; South Sandwich
+                                  Islands
+                                </option>
+                                <option value="248">South Sudan</option>
+                                <option value="195">Spain</option>
+                                <option value="196">Sri Lanka</option>
+                                <option value="249">St. Barthelemy</option>
+                                <option value="197">St. Helena</option>
+                                <option value="250">St. Martin (French part)</option>
+                                <option value="198">St. Pierre and Miquelon</option>
+                                <option value="199">Sudan</option>
+                                <option value="200">Suriname</option>
+                                <option value="201">Svalbard and Jan Mayen Islands</option>
+                                <option value="202">Swaziland</option>
+                                <option value="203">Sweden</option>
+                                <option value="204">Switzerland</option>
+                                <option value="205">Syrian Arab Republic</option>
+                                <option value="206">Taiwan</option>
+                                <option value="207">Tajikistan</option>
+                                <option value="208">Tanzania, United Republic of</option>
+                                <option value="209">Thailand</option>
+                                <option value="210">Togo</option>
+                                <option value="211">Tokelau</option>
+                                <option value="212">Tonga</option>
+                                <option value="213">Trinidad and Tobago</option>
+                                <option value="255">Tristan da Cunha</option>
+                                <option value="214">Tunisia</option>
+                                <option value="215">Turkey</option>
+                                <option value="216">Turkmenistan</option>
+                                <option value="217">Turks and Caicos Islands</option>
+                                <option value="218">Tuvalu</option>
+                                <option value="219">Uganda</option>
+                                <option value="220">Ukraine</option>
+                                <option value="221">United Arab Emirates</option>
+                                <option value="222">United Kingdom</option>
+                                <option value="223">United States
+                                </option>
+                                <option value="224">United States Minor Outlying Islands
+                                </option>
+                                <option value="225">Uruguay</option>
+                                <option value="226">Uzbekistan</option>
+                                <option value="227">Vanuatu</option>
+                                <option value="228">Vatican City State (Holy See)</option>
+                                <option value="229">Venezuela</option>
+                                <option value="230">Viet Nam</option>
+                                <option value="231">Virgin Islands (British)</option>
+                                <option value="232">Virgin Islands (U.S.)</option>
+                                <option value="233">Wallis and Futuna Islands</option>
+                                <option value="234">Western Sahara</option>
+                                <option value="235">Yemen</option>
+                                <option value="238">Zambia</option>
+                                <option value="239">Zimbabwe</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                              <label for="zipCode">Zip Code</label>
+                              <input id="newZipCode" type="text" class="form-control" required placeholder="452625">
+                            </div>
+                          </div>
+                          <!-- <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                              <label for="input-zone">State</label>
+                              <select class="custom-select" id="inputState" name="zone_id">
+                                <option value="">  Please Select </option>
+                                <option value="3613">Lower Silesian</option>
+                                <option value="3614">Alaska</option>
+                                <option value="3615">Kuyavian-Pomeranian</option>
+                                <option value="3616">Lublin</option>
+                                <option value="3617">Lubusz</option>
+                                <option value="3618">Łódź</option>
+                                <option value="3619">Lesser Poland</option>
+                                <option value="3620">Masovian</option>
+                                <option value="3621">Opole</option>
+                                <option value="3622">Subcarpathian</option>
+                                <option value="3623">Podlaskie</option>
+                                <option selected="selected" value="3624">Pomeranian</option>
+                                <option value="3625">Silesian</option>
+                                <option value="3626"> Holy Cross</option>
+                                <option value="3627">Warmian-Masuriane</option>
+                                <option value="3628">Greater Poland</option>
+                                <option value="3629">West Pomeranian</option>
+                              </select>
+                            </div>
+                          </div> -->
+
+                        </div>
+                        <button id="btn-save-pData" class="btn btn-primary btn-block mt-2" type="submit">Save Changes
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Personal Details End -->
+
+            <!-- Phone -->
+            <div class="bg-light shadow-sm rounded infoItems">
+              <a href="#edit-phone" class="float-right text-1 text-uppercase text-muted btn-link pbtn" data-id="edit-phone"><i class="fas fa-edit mr-1"></i>Update</a>
+              <div class="row">
+                <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Mobile <span class="text-muted font-weight-500">(Primary)</span></p>
+                <p id="phoneNumber" class="col-sm-9">+2 321-5234-0112</p>
+              </div>
+              <div id="edit-phone" class="accord">
+                <div class="">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title font-weight-400">Phone</h5>
+                      <button type="button" class="close font-weight-400" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body p-4">
+                      <form method="post">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label for="mobileNumber">Mobile <span class="text-muted font-weight-500">(Primary)</span></label>
+                              <input type="text" class="form-control" data-bv-field="mobilenumber" id="newPhoneNumber" required placeholder="Mobile Number">
+                            </div>
+                          </div>
+                        </div>
+                        <a class="btn-link text-uppercase d-flex align-items-center text-1 float-right mb-3" href="#"><span class="text-3 mr-1"><i class="fas fa-plus-circle"></i></span>Add
+                          another Phone</a>
+                        <button id="savePhoneDetails" class="btn btn-primary btn-block" type="submit">Save Changes</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Phone End -->
+
+            <!-- Security -->
+            <div class="bg-light shadow-sm rounded infoItems">
+              <a href="#change-password" class="float-right text-1 text-uppercase text-muted btn-link pbtn" data-id="change-password"><i class="fas fa-edit mr-1"></i>Update</a>
+              <div class="row">
+                <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">
+                  <label class="col-form-label">Password</label>
+                </p>
+                <p class="col-sm-9">
+                  <input type="password" class="form-control-plaintext" data-bv-field="password" id="currentPassword" value="EnterPassword">
+                </p>
+              </div>
+              <div class="row">
+                <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">
+                  <label class="col-form-label">Security question</label>
+                </p>
+                <p class="col-sm-9">
+                  <input type="password" class="form-control-plaintext" data-bv-field="password" id="security" value="EnterPassword">
+                </p>
+              </div>
+              <div id="change-password" class="accord">
+                <div class="">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title font-weight-400">Change Password</h5>
+                      <button type="button" class="close font-weight-400" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div class="modal-body">
+                      <form id="changePassword" method="post">
+
+                        <div class="form-group">
+                          <label for="newPassword">New Password</label>
+                          <input type="password" class="form-control" data-bv-field="newpassword" id="newPassword" required placeholder="Enter New Password">
+                        </div>
+                        <div class="form-group">
+                          <label for="confirmPassword">Confirm New Password</label>
+                          <input type="password" class="form-control" data-bv-field="confirmgpassword" id="confirmPassword" required placeholder="Enter Confirm New Password">
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                              <label for="input-zone">Security question</label>
+                              <select class="custom-select" id="input-zone" name="zone_id">
+                                <option selected="selected" value="">--- Please Select ---</option>
+                                <option value="3622">What county were you born?</option>
+                                <option value="3623">What is your oldest cousin’s first name?
+                                </option>
+                                <option value="3624">What is the title and artist of your favorite song?</option>
+                                <option value="3625">What is your work address?</option>
+                                <option value="3626">What is your oldest sibling’s middle name?</option>
+                                <option value="3627">What is your car’s license plate number?</option>
+                                <option value="3628">What was your favorite elementary school teacher’s name?</option>
+                                <option value="3629">What was your favorite Color?</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                              <label for="secAns"> &nbsp;</label>
+                              <input id="secAns" type="text" class="form-control" required placeholder="Criminal ~Michle Jackson">
+                            </div>
+                          </div>
+                        </div>
+                        <button id="updateSecurity" class="btn btn-primary btn-block mt-4" type="submit">Update Security
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Security End -->
+          </div>
+          <!-- Middle Panel End -->
+        </div>
+      </div>
+    </div>
+    <!-- Content end -->
+
+
+    <!-- Footer strat -->
+    <footer class="footer">
+      <div class="foo-top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-nav">
+                <h5>Access Us</h5>
+                <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Payment</a></li>
+                  <li><a href="#">Send Money</a></li>
+                  <li><a href="#">Receive Money</a></li>
+                  <li><a href="#">Fees</a></li>
+                  <li><a href="#">Services</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-nav">
+                <h5>Help Center</h5>
+                <ul>
+                  <li><a href="#">Customer Care</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                  <li><a href="#">Live Chat</a></li>
+                  <li><a href="#">Payment</a></li>
+                  <li><a href="#">Custom API</a></li>
+                  <li><a href="#">Affiliate</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-nav">
+                <h5>Follow Us</h5>
+                <ul>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Facebook</a></li>
+                  <li><a href="#">Twitter</a></li>
+                  <li><a href="#">Linkedin</a></li>
+                  <li><a href="#">Youtube</a></li>
+                  <li><a href="#">Forum</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-nav">
+                <h5>Partners</h5>
+                <ul>
+                  <li><a href="#">Refer A Frient</a></li>
+                  <li><a href="#">Affiliate Programs</a></li>
+                  <li><a href="#">Payment API</a></li>
+                  <li><a href="#">Partner Directory</a></li>
+                  <li><a href="#">Become A Partner</a></li>
+                  <li><a href="#">Find Locations</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-nav">
+                <h5>Services</h5>
+                <ul>
+                  <li><a href="#">Transfer Money</a></li>
+                  <li><a href="#">Saving Account</a></li>
+                  <li><a href="#">Online Shopping</a></li>
+                  <li><a href="#">Pay Bills</a></li>
+                  <li><a href="#">Credit Service</a></li>
+                  <li><a href="#">Ecommerce</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="widget foo-address">
+                <h5>Stay In Touch</h5>
+                <address>
+                  <a href="malto:ervice@email.com">MCWallet@gmail.com</a>
+                  <a href="tel:+12345678921">+48 729 623 471</a>
+                </address>
+                <address>
+                  Berberysowa 02, <br>
+                  20-226 Lublin, <br>
+                  Poland
+                </address>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foo-btm">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="foo-navigation">
+                <ul>
+                  <li><a href="#">Terms and Conditions</a></li>
+                  <li><a href="#">Privacy & Policy</a></li>
+                  <li><a href="#">Legal</a></li>
+                  <li><a href="#">Notice</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="copyright">Copyright &copy; <a href="index.html">Multi-Currency Wallet</a>2019-2020</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Footer end -->
+
+  </div>
+  <!-- Document Wrapper end -->
+
+  <!-- Script -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/moment.min.js"></script>
+  <script src="js/daterangepicker.js"></script>
+  <script src="js/bootstrap-select.min.js"></script>
+  <script src="js/custom.js"></script>
+
+  <script src="../js/index.js"></script>
+
+
+
+  // User-Profile-Data
+  <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var userId = user.uid;
+        firebase.database().ref('Users/' + userId).once('value').then(
+          function(snapshot) {
+            var userName = (snapshot.val() && snapshot.val().userName);
+            var image = (snapshot.val() && snapshot.val().profileImgURL);
+            var image = (snapshot.val() && snapshot.val().profileImgURL);
+            var address = (snapshot.val() && snapshot.val().address);
+            var phoneNumber = (snapshot.val() && snapshot.val().phone);
+            var dateOfBirth = (snapshot.val() && snapshot.val().birthDate);
+
+
+            $('#profile-name').empty().append(userName);
+            $('#profile-id').empty().append(userId);
+
+            $("#profile-image").attr("src", image);
+            $("#profile-image1").attr("src", image);
+
+            $('#profile-name1').empty().append(userName);
+            $('#profile-name2').empty().append(userName);
+
+            $('#userName').empty().append(userName);
+
+            $('#address').empty().append(address);
+            $('#address1').empty().append(address);
+
+            $('#phoneNumber').empty().append(phoneNumber);
+
+            $('#dateOfBirth').empty().append(dateOfBirth);
+
+          }
+        )
+      }
+    });
+  </script>
+
+
+  <script type="text/javascript">
+    $("#updateSecurity").click(function() {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          var newPassword1 = $("#newPassword").val();
+          var confirmPassword = $("#confirmPassword").val();
+          var input_zone = $("#input-zone option:selected").text();
+          var secAns = $("#secAns").val().toUpperCase();
+          var securityQuestion = input_zone + secAns;
+
+          if (newPassword1 != "" && confirmPassword != "" && newPassword != "" && confirmPassword != "" && input_zone != "--- Please Select ---" && secAns != "") {
+            if (newPassword1 === confirmPassword) {
+
+              firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                  var userId = user.uid;
+                  firebase.database().ref('Users/' + userId).once('value').then(
+                    function(snapshot) {
+                      var securityQuestion = (snapshot.val() && snapshot.val().securityQuestionAndAns);
+                      localStorage.setItem('securityQue_Ans', securityQuestion);
+                    }
+                  )
+                }
+              });
+
+              var securityQue_Ans = localStorage.getItem('securityQue_Ans');
+
+              if (securityQuestion === securityQue_Ans) {
+                let user = firebase.auth().currentUser;
+                let newPassword = newPassword1;
+
+                user.updatePassword(newPassword).then(() => {
+                  window.alert("Password has been successfully Cheanged!");
+                  window.location.href = 'profile.html';
+                }, (error) => {
+                  window.alert(error);
+                });
+              } else {
+                window.alert("Your security Question is wrong. try again!");
+              }
+            } else {
+              window.alert("Password does not match! Please re-enter your password.");
+            }
+          } else {
+            window.alert("First fill up all data please");
+          };
+        }
+      });
+    });
+
+    $("#savePhoneDetails").click(function() {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          var newNumber = $("#newPhoneNumber").val();
+          var userId = user.uid;
+          var rootRef = firebase.database().ref("Users/" + userId);
+
+          if (newNumber != "") {
+            rootRef.update({
+              phone: newNumber
+            }).then(success => {
+                console.log('success', success);
+                window.alert("Phone Number has been successfully Cheanged!");
+                window.location.href = 'profile.html';
+              },
+              error => {
+                console.log('error', error);
+              }
+            );
+          } else {
+            window.alert("Please write new phone number please!");
+          }
+        }
+      });
+    });
+
+
+
+
+    $("#btn-save-pData").click(function() {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+
+          var firstName = $("#firstName").val();
+          var secondName = $("#fullName").val();
+          var birthDate = $("#birthDate").val();
+          var newAddress = $("#address1").val();
+          var city = $("#newCity").val();
+          var country = $("#newCountry option:selected").text();
+          var zipCode = $("#newZipCode").val();
+          var fullAddress = (newAddress + ", " + city + ", " + zipCode + ", " + country);
+
+          if (firstName != "" && secondName != "" && birthDate != "" && newAddress != "" && city != "" && country != "" && zipCode != "") {
+            var userId = user.uid;
+            var rootRef = firebase.database().ref("Users/" + userId);
+
+            rootRef.update({
+              firstName: firstName,
+              secondName: secondName,
+              birthDate: birthDate,
+              address: fullAddress,
+            }).then(success => {
+                console.log('success', success);
+                window.alert("Profile data has been successfully Cheanged!");
+                window.location.href = 'profile.html';
+              },
+              error => {
+                console.log('error', error);
+              }
+            );
+
+          } else {
+            window.alert("First fill up all data please");
+          }
+        }
+      });
+    });
+  </script>
+
+
+
+  <!-- // User Verify through If Statement -->
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        window.location.href = "../login.html";
+      };
+    });
+  </script>
+
+</body>
+
+</html>
